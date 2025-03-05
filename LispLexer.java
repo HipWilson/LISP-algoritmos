@@ -1,20 +1,6 @@
 /*
- * Programa Java que realiza análisis léxico (Lexer) de expresiones LISP.
- *
- * Requisitos:
- *  a) Verificar que la expresión tenga igual cantidad de paréntesis de apertura y cierre.
- *  b) Generar la lista de tokens de la expresión.
- *
- * Ejemplo de entrada:
- *   (+ 2 (* V 8))
- *
- * Ejemplo de salida:
- *   Expresión correcta: Paréntesis balanceados.
- *   Tokens: (,+,2,(,*,V,8,),)
- *
- * Se implementa el análisis léxico de forma recursiva para diferir de un enfoque convencional.
- *
- * CITACIÓN: Parte de este código fue generado con la asistencia de ChatGPT.
+ * Programa en Java que realiza analisis Lexer de expresiones LISP.
+ * CITACION: Parte de este codigo fue generado con la asistencia de ChatGPT.
  */
 
  import java.util.ArrayList;
@@ -24,7 +10,7 @@
  public class LispLexer {
  
      public static void main(String[] args) {
-         System.out.println("Ingrese la expresión LISP (finalice con una línea vacía):");
+         System.out.println("Ingrese la expresion LISP dejando una línea vacía (un enter)):");
          Scanner scanner = new Scanner(System.in);
          StringBuilder inputBuilder = new StringBuilder();
          
@@ -40,19 +26,19 @@
          
          String input = inputBuilder.toString().trim();
          
-         // Tokenización recursiva.
+         // Tokenizacion recursiva.
          List<String> tokens = tokenize(input);
          
-         // Verificación recursiva de balance de paréntesis.
+         // Verificacion recursiva de balance de parentesis.
          boolean balanced = checkBalance(tokens);
          
          if (balanced) {
-             System.out.println("Expresión correcta: Paréntesis balanceados.");
+             System.out.println("Expresion correcta: Los parentesis estan balanceados.");
          } else {
-             System.out.println("Expresión incorrecta: Paréntesis desbalanceados.");
+             System.out.println("Expresion incorrecta: Parentesis desbalanceados.");
          }
          
-         // Impresión de tokens en el formato solicitado.
+         // Impresion de tokens en el formato solicitado.
          System.out.print("Tokens: ");
          System.out.print("(");
          for (int i = 0; i < tokens.size(); i++) {
@@ -64,7 +50,7 @@
          System.out.println(")");
      }
      
-     // Método que inicia la tokenización de forma recursiva.
+     // Metodo que inicia la tokenizacion de forma recursiva.
      private static List<String> tokenize(String input) {
          List<String> tokens = new ArrayList<>();
          tokenizeRec(input, 0, tokens, new StringBuilder());
@@ -72,8 +58,8 @@
      }
      
      /**
-      * Método recursivo para tokenizar la entrada.
-      * Separa paréntesis y acumula caracteres para formar tokens.
+      * Metodo para la entrada
+      * Separa parentesis y acumula caracteres para formar tokens.
       */
      private static void tokenizeRec(String input, int index, List<String> tokens, StringBuilder token) {
          if (index >= input.length()) {
@@ -86,7 +72,7 @@
          char c = input.charAt(index);
          
          if (c == '(' || c == ')') {
-             // Si se tiene un token en construcción, se añade antes de procesar el paréntesis.
+             // Si se tiene un token en construccion, se añade antes de procesar el parentesis.
              if (token.length() > 0) {
                  tokens.add(token.toString());
                  token.setLength(0);
@@ -105,24 +91,24 @@
          }
      }
      
-     // Verifica recursivamente si los paréntesis en la lista de tokens están balanceados.
+     // Verifica si los parentesis en la lista de tokens estan balanceados.
      private static boolean checkBalance(List<String> tokens) {
-         return checkBalanceRec(tokens, 0, 0);
-     }
-     
-     // Método auxiliar recursivo para el balance de paréntesis.
-     private static boolean checkBalanceRec(List<String> tokens, int index, int balance) {
-         if (index == tokens.size()) {
-             return balance == 0;
-         }
-         String token = tokens.get(index);
-         if (token.equals("(")) {
-             balance++;
-         } else if (token.equals(")")) {
-             balance--;
-         }
-         if (balance < 0) return false;
-         return checkBalanceRec(tokens, index + 1, balance);
-     }
+        return checkBalanceRec(tokens, 0, 0);
+    }
+    
+    // Metodo auxiliar recursivo para el balance de parentesis.
+    private static boolean checkBalanceRec(List<String> tokens, int index, int balance) {
+        if (index == tokens.size()) {
+            return balance == 0;
+        }
+        String token = tokens.get(index);
+        if (token.equals("(")) {
+            balance++;
+        } else if (token.equals(")")) {
+            balance--;
+        }
+        if (balance < 0) return false;
+        return checkBalanceRec(tokens, index + 1, balance);
+    }
  }
  
